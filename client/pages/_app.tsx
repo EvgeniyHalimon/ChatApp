@@ -1,10 +1,11 @@
+import SocketProvider from 'context/socket.context';
 import { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps } : AppProps) {
   return (
-    <div>
+    <SocketProvider>
       <Component {...pageProps} />
-    </div>
+    </SocketProvider>
   );
 }
 
