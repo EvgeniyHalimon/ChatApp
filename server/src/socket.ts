@@ -30,7 +30,6 @@ function socket({ io }: { io: Server }) {
      * When a user creates a new room
      */
     socket.on(EVENTS.CLIENT.CREATE_ROOM, ({ roomName }) => {
-      console.log({ roomName });
       // create a roomId
       const roomId = randomUUID();
       // add a new room to the rooms object
@@ -47,8 +46,6 @@ function socket({ io }: { io: Server }) {
       socket.emit(EVENTS.SERVER.ROOMS, rooms);
       // emit event back the room creator saying they have joined a room
       socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
-
-      console.log('ROOMS', rooms);
     });
 
     /*
@@ -59,11 +56,11 @@ function socket({ io }: { io: Server }) {
       EVENTS.CLIENT.SEND_ROOM_MESSAGE,
       ({ roomId, message, username }) => {
         const date = new Date();
-
+        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
         socket.to(roomId).emit(EVENTS.SERVER.ROOM_MESSAGE, {
           message,
           username,
-          time: `${date.getHours()}:${date.getMinutes()}`,
+          time: `${date.getHours()}:${minutes}`,
         });
       }
     );

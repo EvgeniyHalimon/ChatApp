@@ -1,13 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
 import { useEffect, useRef } from "react";
 import { useSockets } from '../context/socket.context';
 import Rooms from "components/Rooms";
 import Messages from "components/Messages";
+import styles from "../styles/Home.module.css";
 
 export default function Home() {
-    const {socket, username, setUsername} = useSockets()
+    const {username, setUsername} = useSockets()
     const usernameRef = useRef<any>(null)
 
     const handleSetUserName = () => {

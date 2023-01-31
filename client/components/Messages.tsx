@@ -17,12 +17,14 @@ const Messages = () => {
 
     const date = new Date()
 
+    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : date.getMinutes()
+
     setMessages([
       ...messages,
       {
         username: 'me',
         message,
-        time: `${date.getHours()}:${date.getMinutes()}`
+        time: `${date.getHours()}:${minutes}`
       }
     ])
 

@@ -30,8 +30,7 @@ function SocketProvider(props: any){
     const [messages, setMessages] = useState<any>([])
 
     socket.on(EVENTS.SERVER.ROOMS, (value) => {
-
-        setRooms(value)
+        localStorage.setItem("rooms", JSON.stringify(value))
     })
 
     socket.on(EVENTS.SERVER.JOINED_ROOM, (value) => {
@@ -54,6 +53,8 @@ function SocketProvider(props: any){
 
             setMessages((messages: any) => [...messages, { message, username, time }]);
         });
+        const rooms = localStorage.getItem("rooms") || ""
+        setRooms(JSON.parse(rooms))
     }, [socket]);
 
     return (

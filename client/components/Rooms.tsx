@@ -5,7 +5,6 @@ import styles from "../styles/Room.module.css";
 
 const Rooms = () => {
   const {socket, roomId, rooms} = useSockets()
-  console.log("🚀 ~ file: Rooms.tsx:8 ~ Rooms ~ rooms", rooms)
   const newRoomRef = useRef<any>(null)
 
   const handleCreateRoom = () => {
