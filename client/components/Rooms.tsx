@@ -5,8 +5,9 @@ import styles from "../styles/Room.module.css";
 
 const Rooms = () => {
   const {socket, roomId, rooms} = useSockets()
+  console.log("🚀 ~ file: Rooms.tsx:8 ~ Rooms ~ rooms", rooms)
   const newRoomRef = useRef<any>(null)
-  
+
   const handleCreateRoom = () => {
     const roomName = newRoomRef.current.value || "";
 
@@ -33,8 +34,8 @@ const Rooms = () => {
           CREATE ROOM
         </button>
       </div>
-      <ul    className={styles.roomList}   >
-        {Object.keys(rooms ).map((key: any) => {
+      <ul className={styles.roomList}>
+        {Object.keys(rooms).map((key: any) => {
           return (
             <div key={key}>
               <button

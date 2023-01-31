@@ -1,5 +1,4 @@
 import EVENTS from 'config/events';
-import { randomUUID } from 'crypto';
 import { useEffect, useRef } from 'react';
 import { useSockets } from '../context/socket.context';
 import styles from "../styles/Messages.module.css";

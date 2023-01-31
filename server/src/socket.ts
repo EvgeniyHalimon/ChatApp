@@ -47,6 +47,8 @@ function socket({ io }: { io: Server }) {
       socket.emit(EVENTS.SERVER.ROOMS, rooms);
       // emit event back the room creator saying they have joined a room
       socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
+
+      console.log('ROOMS', rooms);
     });
 
     /*

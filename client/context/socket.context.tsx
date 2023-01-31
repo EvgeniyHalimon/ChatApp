@@ -30,6 +30,7 @@ function SocketProvider(props: any){
     const [messages, setMessages] = useState<any>([])
 
     socket.on(EVENTS.SERVER.ROOMS, (value) => {
+
         setRooms(value)
     })
 
@@ -46,10 +47,14 @@ function SocketProvider(props: any){
     })
 
     useEffect(() => {
-        window.onfocus = function () {
-            document.title = "Chat App"
-        }
-    },[])
+        socket.on(EVENTS.SERVER.ROOM_MESSAGE, ({ message, username, time }) => {
+          if (!document.hasFocus()) {
+            document.title = "New message...";
+          }
+
+            setMessages((messages: any) => [...messages, { message, username, time }]);
+        });
+    }, [socket]);
 
     return (
         <SocketContext.Provider 

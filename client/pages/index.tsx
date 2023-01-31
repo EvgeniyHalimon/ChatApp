@@ -11,15 +11,15 @@ export default function Home() {
     const usernameRef = useRef<any>(null)
 
     const handleSetUserName = () => {
-        const value = usernameRef?.current?.value
-        if(!value) return
-        setUsername(value)
-        localStorage.setItem("username", value)
+      const value = usernameRef?.current?.value
+      if(!value) return
+      setUsername(value)
+      localStorage.setItem("username", value)
     }
 
     useEffect(() => {
         if (usernameRef){
-          usernameRef.current.value = localStorage.getItem("username") || "";
+          usernameRef.current.value = localStorage.getItem("username") ? localStorage.getItem("username") : "";
         }
     }, []);
 
