@@ -3,11 +3,12 @@ import EVENTS from "../config/events";
 import { useSockets } from "../context/socket.context";
 import styles from "../styles/Room.module.css";
 
-const Rooms = () => {
-  const {socket, roomId, rooms} = useSockets()
-  const newRoomRef = useRef<any>(null)
+function RoomsContainer() {
+  const { socket, roomId, rooms  } = useSockets();
+  const newRoomRef = useRef<any>(null);
 
-  const handleCreateRoom = () => {
+  function handleCreateRoom() {
+    //get the room name
     const roomName = newRoomRef.current.value || "";
 
     if (!String(roomName).trim()) return;
@@ -19,7 +20,7 @@ const Rooms = () => {
     newRoomRef.current.value = "";
   }
 
-  function handleJoinRoom(key: any) {
+  function handleJoinRoom(key: string | undefined) {
     if (key === roomId) return;
 
     socket.emit(EVENTS.CLIENT.JOIN_ROOM, key);
@@ -33,6 +34,7 @@ const Rooms = () => {
           CREATE ROOM
         </button>
       </div>
+
       <ul className={styles.roomList}>
         {Object.keys(rooms).map((key: any) => {
           return (
@@ -49,7 +51,7 @@ const Rooms = () => {
         })}
       </ul>
     </nav>
-  )
+  );
 }
 
-export default Rooms
+export default RoomsContainer;

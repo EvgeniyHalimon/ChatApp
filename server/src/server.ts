@@ -8,17 +8,17 @@ import socket from './socket'
 
 const port = config.get<number>("port")
 const host = config.get<string>("host")
-const corsOrigin = config.get<string>("corsOrigin")
+const corsOrigin = config.get<string[]>("corsOrigin")
 
 const app = express()
 const httpServer = createServer(app)
 
 const io = new Server(httpServer, {
-    cors: { 
-        origin : corsOrigin,
+    cors: {
+        origin: ["http://localhost:3000", "http://localhost:3001"],
         credentials: true
     }
-})
+});
 
 app.get('/', (_, res) => {
     res.send("Server is up")

@@ -37,15 +37,15 @@ function socket({ io }: { io: Server }) {
         name: roomName,
       };
 
-      socket.join(roomId);
+      /* socket.join(roomId); */
 
       // broadcast an event saying there is a new room
       socket.broadcast.emit(EVENTS.SERVER.ROOMS, rooms);
-
+      
       // emit back to the room creator with all the rooms
       socket.emit(EVENTS.SERVER.ROOMS, rooms);
       // emit event back the room creator saying they have joined a room
-      socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
+      /* socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId); */
     });
 
     /*
