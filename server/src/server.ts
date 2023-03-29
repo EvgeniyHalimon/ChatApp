@@ -1,10 +1,11 @@
-import express from 'express'
+import express, { NextFunction } from 'express'
 import {createServer} from 'http'
 import {Server} from 'socket.io'
 import cors from 'cors'
 import config from 'config'
 import logger from './utils/logger'
 import socket from './socket'
+import { randomUUID } from "crypto";
 
 const port = config.get<number>("port")
 const host = config.get<string>("host")
@@ -18,6 +19,18 @@ const io = new Server(httpServer, {
         origin: ["http://localhost:3000", "http://localhost:3001"],
         credentials: true
     }
+});
+
+io.use(async (socket: any, next) => {
+    const username = socket.handshake.auth.username;
+
+    if (!username) {
+        return next(new Error("invalid username!"));
+    }
+
+    socket.userID = randomUUID();
+    socket.username = username;
+    next();
 });
 
 app.get('/', (_, res) => {
