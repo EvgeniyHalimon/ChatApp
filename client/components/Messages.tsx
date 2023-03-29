@@ -42,7 +42,7 @@ const Messages = () => {
   return (
     <div className={styles.wrapper}>
       <div className={styles.messageList}>
-        {messages.map(({ message, username, time }) => {
+        {messages?.map(({ message, username, time }) => {
           return (
             <div key={message} className={styles.message}>
               <div key={message} className={styles.messageInner}>
