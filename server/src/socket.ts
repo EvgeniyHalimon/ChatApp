@@ -17,12 +17,12 @@ const EVENTS = {
     JOINED_ROOM: "JOINED_ROOM",
     ROOM_MESSAGE: "ROOM_MESSAGE",
     USERS: 'USERS',
-    USERS_CONNECTED: 'USERS_CONNECTED',
+    USER_CONNECTED: 'USER_CONNECTED',
     USER_DISSCONNECTED: 'USER_DISCONNECTED',
   },
 };
 
-interface ISocket extends Socket{
+export interface ISocket extends Socket{
   userID: string,
   username: string
 }
@@ -38,12 +38,17 @@ function socket({ io }: { io: Server }) {
   io.on(EVENTS.connection, (socket: ISocket ) => {
     logger.info(`User connected ${socket.id}`);
 
+    socket.emit("session", {
+      userID: socket.userID
+    })
+
     socket.emit(EVENTS.SERVER.ROOMS, rooms);
 
     /*
      * When a user creates a new room
      */
     socket.on(EVENTS.CLIENT.CREATE_ROOM, ({ roomName }) => {
+      console.log("🚀 ~ file: socket.ts:64 ~ socket.on ~ roomName:", roomName)
       // create a roomId
       const roomId = randomUUID();
       // add a new room to the rooms object
@@ -88,12 +93,12 @@ function socket({ io }: { io: Server }) {
       socket.emit(EVENTS.SERVER.JOINED_ROOM, roomId);
     });
 
-    //PRIVATE MESSAGING
 
+    
+    //PRIVATE MESSAGING
+    console.log(socket, '^^^')
     //emit session details
-    socket.emit("session", {
-      userID: socket.userID
-    })
+    
 
     //join the userID room
     socket.join(socket.userID)
@@ -111,23 +116,25 @@ function socket({ io }: { io: Server }) {
       }
     });
 
+    //notify existing users
+    
     users.push({
-        userID: socket.userID,
-        username: socket.username,
-        connected: socket.connected,
-        messages: messagesPerUser.get(socket.userID) || [],
+      userID: socket.userID,
+      username: socket.username,
+      connected: socket.connected,
+      messages: messagesPerUser.get(socket.userID) || [],
     });
 
     socket.emit(EVENTS.SERVER.USERS, users)
 
-    //notify existing users
-    socket.broadcast.emit(EVENTS.SERVER.USERS_CONNECTED, {
-      userID: socket.userID,
-      username: socket.username,
-      connected: true,
-      messages: []
-    })
-
+    // notify existing users
+    socket.broadcast.emit(EVENTS.SERVER.USER_CONNECTED, {
+        userID: socket.userID,
+        username: socket.username,
+        connected: true,
+        messages: []
+    });
+    
     //forward the private msgs to the right recipent (and to other tabs of the sender)
     socket.on(EVENTS.CLIENT.PRIVATE_MESSAGE, ({ content, to }) => {
       const message = {
@@ -138,16 +145,15 @@ function socket({ io }: { io: Server }) {
 
       socket.to(to).emit(EVENTS.CLIENT.PRIVATE_MESSAGE, message)
       messageStore.saveMessage(message)
-
-      
     })
+
     //notify users on disconnection
     socket.on(EVENTS.disconnect, async () => {
       const matchingSockets: any = await io.in(socket.userID).fetchSockets()
       const isDisconnected = matchingSockets.size === 0
 
       if(isDisconnected){
-        socket.broadcast.emit(EVENTS.SERVER.USERS_CONNECTED, socket.userID)
+        socket.broadcast.emit(EVENTS.SERVER.USER_CONNECTED, socket.userID)
       }
 
       users = users.filter(user => user.userID !== socket.userID);
