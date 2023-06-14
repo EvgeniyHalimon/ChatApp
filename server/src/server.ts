@@ -17,7 +17,7 @@ const io = new Server(httpServer, {
 });
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', ["*", "https://chat-app-client-eight.vercel.app"]);
     next();
   });
 
