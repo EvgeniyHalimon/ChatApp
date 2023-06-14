@@ -1,15 +1,11 @@
 import express, { NextFunction } from 'express'
 import {createServer} from 'http'
 import {Server} from 'socket.io'
-import cors from 'cors'
-import config from 'config'
 import logger from './utils/logger'
 import socket, { ISocket } from './socket'
 import { randomUUID } from "crypto";
 
-const port = process.env.SOCKET_URL_SERVER || 4000
-const host = process.env.SOCKET_URL_SERVER || 'localhost'
-const corsOrigin = config.get<string[]>("corsOrigin")
+const port = process.env.SOCKET_URL_SERVER || 'https://vercel.com/evgeniyhalimon/chat-app/2Sbr1ShJf5ZCAdUiRvzg8Wsh3VmZ'
 
 const app = express()
 const httpServer = createServer(app)
