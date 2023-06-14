@@ -9,17 +9,9 @@
   "output": {
     "root": "public"
   },
-  "routes": [
+  "headers": [
     {
-      "source": "(.*)",
-      "methods": [
-        "GET",
-        "POST",
-        "PUT",
-        "DELETE",
-        "PATCH",
-        "OPTIONS"
-      ],
+      "source": "/(.*)",
       "headers": [
         { "key": "Access-Control-Allow-Credentials", "value": "true" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
