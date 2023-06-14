@@ -1,1 +1,1 @@
-export const SOCKET_URL = "https://vercel.com/evgeniyhalimon/chat-app/2Sbr1ShJf5ZCAdUiRvzg8Wsh3VmZ"
+export const SOCKET_URL = "http://localhost:4000"
