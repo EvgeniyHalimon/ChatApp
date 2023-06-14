@@ -11,7 +11,7 @@ const httpServer = createServer(app)
 
 const io = new Server(httpServer, {
     cors: {
-        origin: "*",
+        origin: ["*", "https://chat-app-server-hvhnxg1vc-evgeniyhalimon.vercel.app/"],
         credentials: true
     }
 });
