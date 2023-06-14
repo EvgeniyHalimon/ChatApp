@@ -1,7 +1,6 @@
 import express, { NextFunction } from 'express'
 import {createServer} from 'http'
 import {Server} from 'socket.io'
-import logger from './utils/logger'
 import socket, { ISocket } from './socket'
 import { randomUUID } from "crypto";
 
@@ -36,5 +35,5 @@ app.get('/', (_, res) => {
 
 socket({io})
 httpServer.listen(port, () => {
-    logger.info(`🚀 Server is listening on port ${port} 🚀`)
+
 })

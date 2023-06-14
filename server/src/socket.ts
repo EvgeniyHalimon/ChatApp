@@ -1,7 +1,6 @@
 import { randomUUID } from "crypto";
 import { Server, Socket } from "socket.io";
 import InMemoreMessageStore from "./messageStore";
-import logger from "./utils/logger";
 
 const EVENTS = {
   connection: "connection",
@@ -33,10 +32,10 @@ let users: any[] = []
 const messageStore = new InMemoreMessageStore()
 
 function socket({ io }: { io: Server }) {
-  logger.info(`Sockets enabled`);
+ 
 
   io.on(EVENTS.connection, (socket: ISocket ) => {
-    logger.info(`User connected ${socket.id}`);
+    
 
     socket.emit("session", {
       userID: socket.userID
