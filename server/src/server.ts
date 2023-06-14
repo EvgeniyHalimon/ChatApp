@@ -16,6 +16,11 @@ const io = new Server(httpServer, {
     }
 });
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    next();
+  });
+
 io.use(async (socket: any, next) => {
     const username = socket.handshake.auth.value;
     console.log("🚀 ~ file: server.ts:26 ~ io.use ~ username:", username)
