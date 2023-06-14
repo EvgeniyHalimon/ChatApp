@@ -13,7 +13,7 @@ interface Context {
   rooms: any;
 }
 
-const socket = io(SOCKET_URL);
+const socket = io("https://chat-app-server-hvhnxg1vc-evgeniyhalimon.vercel.app");
 
 const SocketContext = createContext<Context>({
   socket,
