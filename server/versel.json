@@ -9,6 +9,12 @@
     "routes": [],
     "output": {
       "root": "public"
-    }
+    },
+    "headers": [
+      {
+        "key": "Access-Control-Allow-Origin",
+        "value": "*"
+      }
+    ]
   }
   
