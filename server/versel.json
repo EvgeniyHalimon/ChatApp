@@ -8,7 +8,7 @@
     ],
     "routes": [],
     "output": {
-      "root": "public"
+      "root": "build"
     }
   }
   
