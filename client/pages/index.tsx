@@ -3,9 +3,10 @@ import { useSockets } from '../context/socket.context';
 import Rooms from "components/Rooms";
 import Messages from "components/Messages";
 import styles from "../styles/Home.module.css";
+import PrivateChat from "components/PrivateChat/PrivateChat";
 
 export default function Home() {
-    const {username, setUsername} = useSockets()
+    const {socket, username, setUsername} = useSockets()
     const usernameRef = useRef<any>(null)
 
     const handleSetUserName = () => {
@@ -13,6 +14,8 @@ export default function Home() {
       if(!value) return
       setUsername(value)
       localStorage.setItem("username", value)
+      socket.auth = { value };
+      socket.connect();
     }
 
     useEffect(() => {
@@ -35,8 +38,9 @@ export default function Home() {
             )}
             {username && (
               <div className={styles.container}>
-                <Rooms />
-                <Messages />
+                {/* <Rooms />
+                <Messages /> */}
+                <PrivateChat/>
               </div>
             )}
         </div>
