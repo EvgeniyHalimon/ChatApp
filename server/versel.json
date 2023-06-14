@@ -1,0 +1,14 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "build-command",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [],
+    "output": {
+      "root": "build/public"
+    }
+  }
+  
