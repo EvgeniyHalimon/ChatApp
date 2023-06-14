@@ -4,7 +4,7 @@ import {Server} from 'socket.io'
 import socket, { ISocket } from './socket'
 import { randomUUID } from "crypto";
 
-const port = "https://chat-app-server-hvhnxg1vc-evgeniyhalimon.vercel.app/"
+const port = "https://chat-app-client-eight.vercel.app"
 
 const app = express()
 const httpServer = createServer(app)
