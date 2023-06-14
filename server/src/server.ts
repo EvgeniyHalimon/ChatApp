@@ -7,8 +7,8 @@ import logger from './utils/logger'
 import socket, { ISocket } from './socket'
 import { randomUUID } from "crypto";
 
-const port = config.get<number>("port")
-const host = config.get<string>("host")
+const port = process.env.SOCKET_URL_SERVER || 4000
+const host = process.env.SOCKET_URL_SERVER || 'localhost'
 const corsOrigin = config.get<string[]>("corsOrigin")
 
 const app = express()
@@ -16,7 +16,7 @@ const httpServer = createServer(app)
 
 const io = new Server(httpServer, {
     cors: {
-        origin: ["http://localhost:3000", "http://localhost:3001"],
+        origin: "*",
         credentials: true
     }
 });
@@ -39,6 +39,6 @@ app.get('/', (_, res) => {
 })
 
 socket({io})
-httpServer.listen(port, host, () => {
+httpServer.listen(port, () => {
     logger.info(`🚀 Server is listening on port ${port} 🚀`)
 })
