@@ -4,20 +4,20 @@ import {Server} from 'socket.io'
 import socket, { ISocket } from './socket'
 import { randomUUID } from "crypto";
 
-const port = "https://chat-app-client-eight.vercel.app"
+const port = "http://localhost:4000"
 
 const app = express()
 const httpServer = createServer(app)
 
 const io = new Server(httpServer, {
     cors: {
-        origin: ["*", "https://chat-app-client-eight.vercel.app"],
+        origin: ["*", "http://localhost:4000"],
         credentials: true
     }
 });
 
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', ["*", "https://chat-app-client-eight.vercel.app"]);
+    res.setHeader('Access-Control-Allow-Origin', ["*", "http://localhost:4000"]);
     next();
   });
 

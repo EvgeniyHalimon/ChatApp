@@ -13,7 +13,7 @@ interface Context {
   rooms: any;
 }
 
-const socket = io("https://chat-app-client-eight.vercel.app");
+const socket = io("http://localhost:4000");
 
 const SocketContext = createContext<Context>({
   socket,
