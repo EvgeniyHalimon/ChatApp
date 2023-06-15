@@ -5,7 +5,7 @@
   "main": "server.ts",
   "scripts": {
     "dev": "npx nodemon",
-    "build": "rimraf ./public && tsc"
+    "build": "rimraf ./build && tsc"
   },
   "author": "Tired Oppossum",
   "license": "ISC",
